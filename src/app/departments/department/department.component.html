@@ -1,0 +1,52 @@
+<form [formGroup]="service.form" class="normal-form">
+    <mat-grid-list cols="2" rowHeight="300px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <!-- <input type="hidden" formControlName="$id"> -->
+          <!--Name-->
+          <mat-form-field>
+            <input formControlName="Name" matInput placeholder="Name*">
+            <mat-error>This field is required.</mat-error>
+          </mat-form-field>
+           <!--Email-->
+          <mat-form-field>
+            <input formControlName="email" matInput placeholder="Email">
+            <mat-error>Invalid email address.</mat-error>
+          </mat-form-field>
+           <!--Phone-->
+          <mat-form-field>
+            <input formControlName="phone_number" matInput placeholder="Phone number*">
+            <mat-error *ngIf="service.form.controls['phone_number'].errors?.required">This field is mandatory.</mat-error>
+            <mat-error *ngIf="service.form.controls['phone_number'].errors?.minlength">Minimum 8 charactors needed.</mat-error>
+          </mat-form-field>
+           <!--Country-->
+          <mat-form-field>
+            <input formControlName="country" matInput placeholder="Country">
+          </mat-form-field>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="controles-container">
+             <!--City-->
+          <mat-form-field>
+            <mat-select formControlName="city" placeholder="Province.City">
+              <mat-option>None</mat-option>
+              <ng-container *ngFor="let city of citys">
+                <mat-option value="{{city.id}}">{{city.value}}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+           <!--District-->
+          <mat-form-field>
+            <input formControlName="district" matInput placeholder="District">
+            <mat-error></mat-error>
+          </mat-form-field>
+          <!--buttongroup-->
+          <div class="button-row">
+            <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Submit</button>
+            <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
